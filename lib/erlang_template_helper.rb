@@ -137,11 +137,11 @@ module Eth
     end
 
     def to_s
-      @config.to_s
+      @config.to_s + "."
     end
 
     def pp(level=0)
-      @config.pp(level)
+      @config.pp(level) + "."
     end
   end
 end
