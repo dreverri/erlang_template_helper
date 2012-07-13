@@ -1,4 +1,4 @@
-{application, eth,
+{application, config_to_json,
  [
   {description, ""},
   {vsn, "1"},
