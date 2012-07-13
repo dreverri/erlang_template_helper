@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+
+require 'optparse'
+require 'rubygems'
+require 'json'
+require 'erlang_template_helper'
+
+options = {:prettify => false}
+
+opts = OptionParser.new do |opts|
+  opts.banner = "Usage: #{File.basename($0)} [options] json_file\n\n"
+
+  opts.on("-p", "--prettify", "Prettify config output") do
+    options[:prettify] = true
+  end
+end
+
+begin
+  opts.parse!
+
+  unless ARGV[0]
+    puts opts
+    exit 1
+  end
+
+  json_file = ARGV[0]
+  json = IO.read(json_file)
+  obj = JSON.parse(json)
+  config = Eth::Config.new(obj)
+  if options[:prettify]
+    print config.pp
+  else
+    print config.to_s
+  end
+rescue OptionParser::ParseError => e
+  puts "Error: #{e}"
+  puts ""
+  puts opts
+  exit 1
+end
