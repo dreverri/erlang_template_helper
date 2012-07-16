@@ -10,9 +10,9 @@ of a Riak config file specified in JSON:
     "storage_backend": "riak_kv_multi_backend",
     "multi_backend_default": "first_backend",
     "multi_backend": [
-      ["__tuple", first_backend, riak_kv_bitcask_backend, {
+      ["__tuple", "first_backend", "riak_kv_bitcask_backend", {
         "data_root": "__string_/var/lib/riak/bitcask"}],
-      ["__tuple", second_backend, riak_kv_leveldb_backend, {
+      ["__tuple", "second_backend", "riak_kv_leveldb_backend", {
         "data_root": "__string_/var/lib/riak/leveldb"}]
     ]
   }
