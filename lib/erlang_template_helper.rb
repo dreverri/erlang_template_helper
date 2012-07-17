@@ -144,4 +144,31 @@ module Eth
       @config.pp(level) + "."
     end
   end
+
+  class Args
+    def initialize(args)
+      @args = args
+    end
+
+    def to_a
+      @args.map do |k, v|
+        case k
+        when "env"
+          v.map do |var, val|
+            "-env #{var} #{val}"
+          end
+        else
+          "#{k} #{v}"
+        end
+      end.flatten
+    end
+
+    def to_s
+      to_a.join(" ")
+    end
+
+    def pp(level=0)
+      to_a.join("\n")
+    end
+  end
 end

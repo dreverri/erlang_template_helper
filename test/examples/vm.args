@@ -1,0 +1,8 @@
+-name riak@127.0.0.1
+-setcookie riak
++K true
++A 64
++W w
+-env ERL_MAX_PORTS 4096
+-env ERL_FULLSWEEP_AFTER 0
+-env ERL_CRASH_DUMP ./log/erl_crash.dump

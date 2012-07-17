@@ -68,3 +68,15 @@ describe "pretty print" do
     obj.pp.must_equal c.strip
   end
 end
+
+describe "args file" do
+  it "should convert args file" do
+    json_path = File.expand_path('../../../examples/vm.json', __FILE__)
+    args_path = File.expand_path('../../../examples/vm.args', __FILE__)
+    j = IO.read(json_path)
+    a = IO.read(args_path)
+    v = JSON.parse(j)
+    obj = Eth::Args.new(v)
+    obj.pp.must_equal a.strip
+  end
+end

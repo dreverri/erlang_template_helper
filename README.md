@@ -1,8 +1,8 @@
 # ErlangTemplateHelper
 
-This library allows one to specify an Erlang config file in JSON. This is useful 
-when deploying an Erlang application with Chef. For example, here is a snippet 
-of a Riak config file specified in JSON:
+This library allows one to specify Erlang config and args files in JSON. This is
+useful when deploying an Erlang application with Chef. For example, here is a
+snippet of a Riak config file specified in JSON:
 
 ```json
 {
@@ -20,6 +20,8 @@ of a Riak config file specified in JSON:
 ```
 
 ## Usage
+
+### Config
 
 * JSON strings are Erlang atoms unless prefixed with `__binary_`, or 
   `__string_`. The prefix `__atom_` is also recognized.
@@ -46,6 +48,22 @@ of a Riak config file specified in JSON:
 		{storage_backend, bitcask}
 	]}
 ]
+=> nil
+```
+
+### Args
+
+Arguments can be specified as a simple JSON object. The library expects the
+`env` key to be a nested object. For example:
+
+```ruby
+> require "erlang_template_helper"
+=> true
+> args = Eth::Args.new({"-name" => "riak@127.0.0.1", "env" => {"ERL_MAX_PORTS" => 4096}})
+=> -name riak@127.0.0.1 -env ERL_MAX_PORTS 4096
+> puts args.pp
+-name riak@127.0.0.1
+-env ERL_MAX_PORTS 4096
 => nil
 ```
 
