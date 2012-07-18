@@ -53,13 +53,13 @@ snippet of a Riak config file specified in JSON:
 
 ### Args
 
-Arguments can be specified as a simple JSON object. The library expects the
-`env` key to be a nested object. For example:
+Arguments can be specified as a simple JSON object. Nested objects are flattened
+but joining the keys and final value by a single space. For example:
 
 ```ruby
 > require "erlang_template_helper"
 => true
-> args = Eth::Args.new({"-name" => "riak@127.0.0.1", "env" => {"ERL_MAX_PORTS" => 4096}})
+> args = Eth::Args.new({"-name" => "riak@127.0.0.1", "-env" => {"ERL_MAX_PORTS" => 4096}})
 => -name riak@127.0.0.1 -env ERL_MAX_PORTS 4096
 > puts args.pp
 -name riak@127.0.0.1

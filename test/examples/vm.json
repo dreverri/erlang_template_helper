@@ -4,7 +4,7 @@
   "+K": "true",
   "+A": 64,
   "+W": "w",
-  "env": {
+  "-env": {
     "ERL_MAX_PORTS": 4096,
     "ERL_FULLSWEEP_AFTER": 0,
     "ERL_CRASH_DUMP": "./log/erl_crash.dump"

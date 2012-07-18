@@ -150,17 +150,17 @@ module Eth
       @args = args
     end
 
+    def expand(k1, v1)
+      case v1
+      when ::Hash
+        v1.map { |k2, v2| expand("#{k1} #{k2}", v2) }
+      else
+        "#{k1} #{v1}"
+      end
+    end
+
     def to_a
-      @args.map do |k, v|
-        case k
-        when "env"
-          v.map do |var, val|
-            "-env #{var} #{val}"
-          end
-        else
-          "#{k} #{v}"
-        end
-      end.flatten
+      @args.map { |k, v| expand(k, v) }.flatten
     end
 
     def to_s
