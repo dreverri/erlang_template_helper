@@ -67,19 +67,38 @@ module Eth
 
     def to_s
       case @str
-      when /^__atom_(.*)/
-        "'#{$1}'"
       when /^__binary_(.*)/
-        "<<\"#{$1}\">>"
+        to_binary($1)
       when /^__string_(.*)/
-        "\"#{$1}\""
+        to_string($1)
+      when /^__atom_(.*)/
+        to_atom($1)
       else
-        @str
+        to_atom(@str)
       end
     end
 
     def pp(level=0)
       to_s
+    end
+
+    private
+
+    def to_binary(str)
+      "<<\"#{str}\">>"
+    end
+
+    def to_string(str)
+      "\"#{str}\""
+    end
+
+    def to_atom(str)
+      case str
+      when /^[a-z][\w@]*$/
+        str
+      else
+        "'#{str}'"
+      end
     end
   end
 
