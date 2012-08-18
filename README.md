@@ -28,7 +28,9 @@ snippet of a Riak config file specified in JSON:
   * `"ok"` becomes `ok`
   * `"__binary_0b:"` becomes `<<"0b:">>`
   * `"__string_127.0.0.1"` becomes `"127.0.0.1"`
-  * `"__atom_riak@127.0.0.1"` becomes `'riak@127.0.0.1'`
+  * `"__atom_ok"` becomes `ok`
+  * Atoms will be single quoted when necessary
+     * `"riak@127.0.0.1"` becomes `'riak@127.0.0.1'`
 * JSON arrays are Erlang lists unless prefixed with `__tuple`. The prefix 
   `__list` is also recognized.
   * `[1, 2, 3]` becomes `[1, 2, 3]`
