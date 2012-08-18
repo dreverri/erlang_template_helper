@@ -7,7 +7,7 @@ describe "string conversions" do
   end
 
   it "should produce an atom" do
-    Eth::Config.new("__atom_key").to_s.must_equal "'key'."
+    Eth::Config.new("__atom_key").to_s.must_equal "key."
   end
 
   it "should produce a binary" do
@@ -78,5 +78,22 @@ describe "args file" do
     v = JSON.parse(j)
     obj = Eth::Args.new(v)
     obj.pp.must_equal a.strip
+  end
+end
+
+describe "single quote atoms" do
+  atoms_under_test = {
+    "containing periods" => ["riak@127.0.0.1"],
+    "beginning with capital letters" => ["Hello"],
+    "containing non-aplhanumeric characters"  => ["hello:world"],
+    "containing dashses" => ["hello-world"]
+  }
+
+  atoms_under_test.each do |scenario, atoms|
+    it "should single quote atoms #{scenario}" do
+      atoms.each do |atom|
+        Eth::String.new(atom).to_s.must_equal "'#{atom}'"
+      end
+    end
   end
 end
