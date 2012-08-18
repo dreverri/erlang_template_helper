@@ -80,3 +80,35 @@ describe "args file" do
     obj.pp.must_equal a.strip
   end
 end
+
+describe "helper methods" do
+  before do
+    class String
+      include Eth::Erlang::String
+    end
+
+    class Array
+      include Eth::Erlang::Array
+    end
+  end
+
+  it "should prefix strings" do
+    "/var/lib/riak".to_erl_string.must_equal "__string_/var/lib/riak"
+  end
+
+  it "should prefix binaries" do
+    "0b:".to_erl_binary.must_equal "__binary_0b:"
+  end
+
+  it "should prefix tuples" do
+    actual = ["first_backend", "riak_kv_bitcask_backend"].to_erl_tuple
+    expected = ["__tuple", "first_backend", "riak_kv_bitcask_backend"]
+    actual.must_equal expected
+  end
+
+  it "should prefix tuples" do
+    actual = [1, 2].to_erl_list
+    expected = ["__list", 1, 2]
+    actual.must_equal expected
+  end
+end

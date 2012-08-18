@@ -1,6 +1,26 @@
-require "erlang_template_helper/version"
-
 module Eth
+  module Erlang
+    module String
+      def to_erl_string
+        "__string_#{self}"
+      end
+
+      def to_erl_binary
+        "__binary_#{self}"
+      end
+    end
+
+    module Array
+      def to_erl_tuple
+        ["__tuple"] + self
+      end
+
+      def to_erl_list
+        ["__list"] + self
+      end
+    end
+  end
+
   module InstanceMethods
     def convert(value)
       case value
