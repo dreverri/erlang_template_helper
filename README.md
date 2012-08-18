@@ -53,6 +53,50 @@ snippet of a Riak config file specified in JSON:
 => nil
 ```
 
+#### String, Array Helpers
+
+Helper methods are provided for the String and Array classes as an alternate to
+using prefixes in Ruby code. They need to be included into the appropriate
+class before using.
+
+Including the modules:
+
+```ruby
+class String
+  include Eth::Erlang::String
+end
+
+class Array
+  include Eth::Erlang::Array
+end
+```
+
+Using `to_erl_string`:
+
+```ruby
+> class String; include Eth::Erlang::String; end
+=> String
+> Eth::Config.new({"data_root" => "/var/lib/riak/leveldb".to_erl_string})
+=> [{data_root, "/var/lib/riak/leveldb"}].
+```
+
+Using `to_erl_binary`:
+
+```ruby
+> class String; include Eth::Erlang::String; end
+=> String
+> Eth::Config.new({"0b:".to_erl_binary => "be_blocks"})
+=> [{<<"0b:">>, be_blocks}].
+```
+
+Using `to_erl_tuple`:
+
+```ruby
+class Array; include Eth::Erlang::Array; end
+> Eth::Config.new(["be_default", "riak_kv_eleveldb_backend", {"max_open_files" => 20}].to_erl_tuple)
+=> {be_default, riak_kv_eleveldb_backend, [{max_open_files, 20}]}.
+```
+
 ### Args
 
 Arguments can be specified as a simple JSON object. Nested objects are flattened
